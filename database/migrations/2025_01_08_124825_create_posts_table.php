@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->text('description');
-            $table->longText('image');
-            $table->unsignedBigInteger('user_id');
-            $table->timestamps();
+        if (!Schema::hasTable('posts')) { // すでにテーブルが存在する場合は作成しない
+            Schema::create('posts', function (Blueprint $table) {
+                $table->id();
+                $table->text('description');
+                $table->longText('image');
+                $table->unsignedBigInteger('user_id');
+                $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
-        });
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            });
+        }
     }
 
     /**
