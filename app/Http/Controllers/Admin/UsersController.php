@@ -12,13 +12,20 @@ class UsersController extends Controller
         $this->user = $user;
     }
 
-    public function index(){
-        //get all users; ordered by name
-        $all_users = $this->user->orderBy('name')->withTrashed()->paginate(10);
-        //paginate(n) -- show n rows per page
-        //withTrashed() -- show all records including Soft-Deleted ones
+    public function index(Request $request){
 
-        return view('admin.users.index')->with('all_users', $all_users);
+        if($request->search){
+            $all_users = $this->user->orderBy('name')->withTrashed()
+                                    ->where('name', 'LIKE', '%'.$request->search.'%')
+                                    ->paginate(10);
+        }else{
+            //get all users; ordered by name
+            $all_users = $this->user->orderBy('name')->withTrashed()->paginate(10);
+            //paginate(n) -- show n rows per page
+            //withTrashed() -- show all records including Soft-Deleted ones
+        }
+        return view('admin.users.index')->with('all_users', $all_users)
+                                        ->with('search', $request->search);
 
     }
 

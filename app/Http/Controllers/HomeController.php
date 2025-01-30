@@ -69,32 +69,19 @@ class HomeController extends Controller
         return $suggested_users;
     }
 
-    public function suggestedUsers(Request $request){
+    public function suggestedUsers(){
+        
+         $all_users = $this->user->all()->except(Auth::user()->id);
 
-        $search = $request->input('search');
-        
-        $query = $this->user->where('id', '!=', Auth::user()->id);
-        
-        if ($search) {
-            $query->where(function($q) use ($search) {
-                $q->where('name', 'LIKE', '%'.$search.'%')
-                  ->orWhere('email', 'LIKE', '%'.$search.'%');
-            });
-        }
-        
-        // not follow users
-        $suggested_users = [];
-        $all_users = $query->get();
-        
-        foreach($all_users as $user) {
-            if(!$user->isFollowed()) {
-                $suggested_users[] = $user;
-            }
-        }
-        
-        return view('user.suggested-users', [
-            'suggested_users' => $suggested_users,
-            'search' => $search
-        ]);
+         $suggested_users = []; //empty array
+         foreach($all_users as $user){
+             //if user is not followed yet...
+             if(!$user->isFollowed()){
+                 //add the user to array
+                 $suggested_users []= $user;
+             }
+         }
+
+         return view('user.suggested-users')->with('suggested_users', $suggested_users);
     }
 }

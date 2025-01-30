@@ -43,8 +43,8 @@ return [
             'url' => env('MAIL_URL'),
             'host' => env('MAIL_HOST', 'sandbox.smtp.mailtrap.io'),
             'port' => env('MAIL_PORT', 2525),
-            'username' => env('MAIL_USERNAME', '1e40ab98f2de0d'),
-            'password' => env('MAIL_PASSWORD', 'd153f450c09187'),
+            'username' => env('MAIL_USERNAME', '0bb872862309c9'),
+            'password' => env('MAIL_PASSWORD', 'f6d351c6e574fa'),
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
@@ -109,7 +109,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'non-reply@kredo-insta.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'no-reply@kredo-insta.com'),
         'name' => env('MAIL_FROM_NAME', 'Kredo Insta'),
     ],
 

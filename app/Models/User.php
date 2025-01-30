@@ -71,18 +71,7 @@ class User extends Authenticatable
         return $this->followers()->where('follower_id', Auth::user()->id)->exists();
     }
 
-    //return true if this user is following the given user
-    public function isFollowing($user){
-        return $this->follows()->where('followed_id', $user->id)->exists();
-    }
-
-    //get the count of followers
-    public function followersCount(){
-        return $this->followers()->count();
-    }
-
-    //administrator(s) setting
-    public function isAdmin(){
-        return $this->role_id === self::ADMIN_ROLE_ID || $this->role_id === self::USER_ROLE_ID;
+    public function followsYou(){
+        return $this->follows()->where('followed_id', Auth::user()->id)->exists();
     }
 }

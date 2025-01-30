@@ -3,6 +3,9 @@
 @section('title', 'Admin: Users')
 
 @section('content')
+    <form action="{{ route('admin.users')}}" method="get">
+        <input type="text" name="search" value="{{ $search }}" placeholder="search names" class="form-control form-control-sm w-auto ms-auto mb-3">
+    </form>
     
     <table class="table border bg-white table-hover align-middle text-secondary">
         <thead class="table-success text-secondary text-uppercase small">

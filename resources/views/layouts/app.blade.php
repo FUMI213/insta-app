@@ -14,10 +14,11 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
-    <link rel="stylesheet" href="{{ asset('css/app-BaVMVknW.css')}}">
-    <script src="{{ asset('js/app-BTTmoT1y.js')}}" crossorigin="anonymous"></script>
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
     <link rel="stylesheet" href="{{ asset('css/style.css')}}">
+
+    <script src="https://kit.fontawesome.com/dbc5b98639.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="app">
@@ -35,8 +36,8 @@
                     <ul class="navbar-nav ms-auto">
                         @auth 
                             @if(!request()->is('admin/*'))
-                                <form action="{{ route('home') }}" method="GET" class="d-flex">
-                                    <input type="text" name="search" placeholder="Search..." class="form-control form-control-sm" value="{{ request('search') }}">
+                                <form action="{{ route('home')}}" method="get">
+                                    <input type="text" name="search" placeholder="search..." class="form-control form-control-sm">
                                 </form>
                             @endif 
                         @endauth
@@ -95,17 +96,13 @@
                                     <a href="{{ route('profile.show', Auth::user()->id)}}" class="dropdown-item">
                                         <i class="fa-solid fa-circle-user"></i> Profile 
                                     </a>
-                                
-                                    <a href="{{ route('suggested.users') }}" class="dropdown-item">
-                                        <i class="fa-solid fa-user-plus"></i> Suggested Users
-                                    </a>
-                                
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
                                         <i class="fa-solid fa-arrow-right-from-bracket"></i> {{ __('Logout') }}
                                     </a>
-                                
+
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>

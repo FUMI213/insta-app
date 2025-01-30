@@ -10,7 +10,6 @@ use App\Http\Controllers\FollowController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Admin\CategoriesController;
-use App\Http\Controllers\SearchController;
 
 
 // Route::get('/', function () {
@@ -21,6 +20,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/suggested-users', [HomeController::class, 'suggestedUsers'])->name('suggested-users');
 
     //post
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
@@ -29,13 +29,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/post/{id}/edit', [PostController::class, 'edit'])->name('post.edit');
     Route::patch('/post/{id}/update', [PostController::class, 'update'])->name('post.update');
     Route::delete('/post/{id}/delete', [PostController::class, 'delete'])->name('post.delete');
-    Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
-
-    //search
-    Route::get('/search', [SearchController::class, 'search'])->name('search');
-
-    //Suggested Users
-    Route::get('/suggested-users', [HomeController::class, 'suggestedUsers'])->name('suggested.users');
 
     //COMMENTS
     Route::post('/comment/{post_id}/store', [CommentController::class, 'store'])->name('comment.store');
@@ -75,3 +68,5 @@ Route::group(['middleware' => 'auth'], function(){
     });
     //Route::get('/admin/posts', [PostsController::class, 'index'])->name('admin.posts');
 });
+
+

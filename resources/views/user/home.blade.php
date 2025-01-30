@@ -70,47 +70,37 @@
 
             {{-- SUGGESTED USERS --}}
             @if($suggested_users)
-            <div class="row mb-3 align-items-center">
-                <div class="col"><h5 class="h6 mb-0 fw-bold text-secondary">Suggestions For You</h5></div>
-                <div class="col-auto">
-                    <a href="{{ route('suggested.users') }}" class="text-decoration-none fw-bold text-dark">See all</a>
-                </div>
-            </div>
-
-            @foreach($suggested_users as $user)
                 <div class="row mb-3 align-items-center">
+                    <div class="col"><h5 class="h6 mb-0 fw-bold text-secondary">Suggestions For You</h5></div>
                     <div class="col-auto">
-                        <a href="{{ route('profile.show', $user->id)}}">
-                            @if($user->avatar)
-                                <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="rounded-circle avatar-md">
-                            @else 
-                                <i class="fa-solid fa-circle-user text-secondary icon-md"></i>
-                            @endif 
-                        </a>
-                    </div>
-                    <div class="col ps-0 text-truncate">
-                        <a href="{{ route('profile.show', $user->id)}}" class="text-decoration-none text-dark fw-bold">{{ $user->name }}</a>
-                        <p class="mb-0 text-muted small">
-                            @if($user->isFollowing(Auth::user()))
-                                Follows you
-                            @else
-                                @if($user->followers()->count() > 0)
-                                    {{ $user->followers()->count() }} followers
-                                @else
-                                    No followers yet
-                                @endif
-                            @endif
-                        </p>
-                    </div>
-                    <div class="col-auto">
-                        <form action="{{ route('follow.store', $user->id)}}" method="post">
-                            @csrf 
-                            <button type="submit" class="btn p-0 bg-transparent text-primary">Follow</button>
-                        </form>
+                        {{-- See All --}}
+                        <a href="{{ route('suggested-users')}}" class="text-decoration-none fw-bold text-dark">See all</a>
                     </div>
                 </div>
-            @endforeach 
-                    @endif
+
+                @foreach($suggested_users as $user)
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-auto">
+                            <a href="{{ route('profile.show', $user->id)}}">
+                                @if($user->avatar)
+                                    <img src="{{ $user->avatar }}" alt="" class="rounded-circle avatar-sm">
+                                @else 
+                                    <i class="fa-solid fa-circle-user text-secondary icon-sm"></i>
+                                @endif 
+                            </a>
+                        </div>
+                        <div class="col ps-0 text-truncate">
+                            <a href="{{ route('profile.show', $user->id)}}" class="text-decoration-none text-dark fw-bold">{{ $user->name }}</a>
+                        </div>
+                        <div class="col-auto">
+                            <form action="{{ route('follow.store', $user->id)}}" method="post">
+                                @csrf 
+                                <button type="submit" class="btn p-0 bg-transparent text-primary">Follow</button>
+                            </form>
+                        </div>
+                    </div>
+                @endforeach 
+            @endif
         </div>
     </div>
 
